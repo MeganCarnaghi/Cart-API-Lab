@@ -16,7 +16,6 @@ const cartItems = [
 ];
 
 // Define routes
-
 // ROUTE 1 - GET request to retrieve all cart items
 routes.get("/cart-items", (req, res) => {
   const maxPrice = req.query.maxPrice;
@@ -36,10 +35,8 @@ routes.get("/cart-items", (req, res) => {
 });
 
 // ROUTE 2 - GET request to retrieve the item with a particular id
-//NEED TO FIX
 routes.get("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
-  console.log(itemId);
   const getItem = cartItems.find((cartItem) => cartItem.id === itemId);
 
   if (!getItem) {
@@ -59,8 +56,30 @@ routes.post("/cart-items", (req, res) => {
     quantity: req.body.quantity,
   };
   cartItems.push(newCartItem);
-  res.status(201);
   res.json(newCartItem);
+  res.status(201);
+});
+
+// ROUTE 4 - PUT request to update an existing cart item
+routes.put("/cart-items/:id", (req, res) => {
+  const itemId = req.params.id;
+  let index = cartItems.findIndex((cartItem) => cartItem.id === itemId);
+  const updatedItem = {
+    id: itemId,
+    product: req.body.product,
+    price: req.body.price,
+    quantity: req.body.quantity,
+  };
+  cartItems[index] = updatedItem;
+  res.status(200);
+});
+
+// ROUTE 5 - DELETE request to delete an existing cart item via id
+routes.delete("/cart-items/:id", (req, res) => {
+  const itemId = req.params.id;
+  let index = cartItems.findIndex((cartItem) => cartItem.id === itemId);
+  cartItems.splice(index, 1);
+  res.sendStatus(204);
 });
 
 // Export router module with routes
