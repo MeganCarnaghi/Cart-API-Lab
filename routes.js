@@ -79,7 +79,7 @@ routes.delete("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
   let index = cartItems.findIndex((cartItem) => cartItem.id === itemId);
   cartItems.splice(index, 1);
-  res.sendStatus(204);
+  res.status(204);
 });
 
 // Export router module with routes
