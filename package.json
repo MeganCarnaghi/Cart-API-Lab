@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/MeganCarnaghi/Cart-API-Lab#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "randts": "^0.0.6",
+    "uuid": "^8.3.2"
   }
 }
