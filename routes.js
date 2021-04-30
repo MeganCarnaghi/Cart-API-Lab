@@ -17,7 +17,7 @@ const cartItems = [
 
 // Define routes
 
-// ROUTE 1
+// ROUTE 1 - GET request to retrieve all cart items
 routes.get("/cart-items", (req, res) => {
   const maxPrice = req.query.maxPrice;
   const prefix = req.query.prefix;
@@ -35,7 +35,7 @@ routes.get("/cart-items", (req, res) => {
   res.status(200);
 });
 
-// ROUTE 2
+// ROUTE 2 - GET request to retrieve the item with a particular id
 //NEED TO FIX
 routes.get("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
@@ -48,6 +48,19 @@ routes.get("/cart-items/:id", (req, res) => {
     res.json(getItem);
     res.status(200);
   }
+});
+
+// ROUTE 3 - POST request to add a new cart item
+routes.post("/cart-items", (req, res) => {
+  const newCartItem = {
+    id: uuidv4(),
+    product: req.body.product,
+    price: req.body.price,
+    quantity: req.body.quantity,
+  };
+  cartItems.push(newCartItem);
+  res.status(201);
+  res.json(newCartItem);
 });
 
 // Export router module with routes
