@@ -36,13 +36,12 @@ router.get("/cart-items", (req, res) => {
 
 // ROUTE 2 - GET request to retrieve the item with a particular id
 router.get("/cart-items/:id", (req, res) => {
-  const itemId = req.params.id;
-  const getItem = cartItems.find((cartItem) => cartItem.id === itemId);
+  const foundItem = cartItems.find((cartItem) => cartItem.id === req.params.id);
 
-  if (!getItem) {
-    response.status(404).send("ID not found.");
+  if (!foundItem) {
+    res.status(404).send("Cart item not found.");
   } else {
-    res.json(getItem);
+    res.json(foundItem);
     res.status(200);
   }
 });
