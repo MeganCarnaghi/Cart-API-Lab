@@ -1,8 +1,8 @@
 // Require Express module
 const express = require("express");
 // Create new router module
-const routes = express.Router();
-routes.use(express.json());
+const router = express.Router();
+router.use(express.json());
 // To create a random id
 const { v4: uuidv4 } = require("uuid");
 
@@ -17,7 +17,7 @@ const cartItems = [
 
 // Define routes
 // ROUTE 1 - GET request to retrieve all cart items
-routes.get("/cart-items", (req, res) => {
+router.get("/cart-items", (req, res) => {
   const maxPrice = req.query.maxPrice;
   const prefix = req.query.prefix;
   const pageSize = req.query.pageSize;
@@ -35,7 +35,7 @@ routes.get("/cart-items", (req, res) => {
 });
 
 // ROUTE 2 - GET request to retrieve the item with a particular id
-routes.get("/cart-items/:id", (req, res) => {
+router.get("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
   const getItem = cartItems.find((cartItem) => cartItem.id === itemId);
 
@@ -48,7 +48,7 @@ routes.get("/cart-items/:id", (req, res) => {
 });
 
 // ROUTE 3 - POST request to add a new cart item
-routes.post("/cart-items", (req, res) => {
+router.post("/cart-items", (req, res) => {
   const newCartItem = {
     id: uuidv4(),
     product: req.body.product,
@@ -61,7 +61,7 @@ routes.post("/cart-items", (req, res) => {
 });
 
 // ROUTE 4 - PUT request to update an existing cart item
-routes.put("/cart-items/:id", (req, res) => {
+router.put("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
   let index = cartItems.findIndex((cartItem) => cartItem.id === itemId);
   const updatedItem = {
@@ -75,7 +75,7 @@ routes.put("/cart-items/:id", (req, res) => {
 });
 
 // ROUTE 5 - DELETE request to delete an existing cart item via id
-routes.delete("/cart-items/:id", (req, res) => {
+router.delete("/cart-items/:id", (req, res) => {
   const itemId = req.params.id;
   let index = cartItems.findIndex((cartItem) => cartItem.id === itemId);
   cartItems.splice(index, 1);
@@ -83,4 +83,4 @@ routes.delete("/cart-items/:id", (req, res) => {
 });
 
 // Export router module with routes
-module.exports = routes;
+module.exports = router;
