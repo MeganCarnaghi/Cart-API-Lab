@@ -6,8 +6,6 @@ router.use(express.json());
 // To create a random id
 const { v4: uuidv4 } = require("uuid");
 
-const { response } = require("express");
-
 const cartItems = [
   { id: uuidv4(), product: "bread", price: 2, quantity: 1 },
   { id: uuidv4(), product: "milk", price: 1.5, quantity: 1 },
@@ -18,9 +16,9 @@ const cartItems = [
 // Define routes
 // ROUTE 1 - GET request to retrieve all cart items
 router.get("/cart-items", (req, res) => {
-  const maxPrice = req.query.maxPrice;
+  const maxPrice = parseInt(req.query.maxPrice);
   const prefix = req.query.prefix;
-  const pageSize = req.query.pageSize;
+  const pageSize = parseInt(req.query.pageSize);
 
   if (maxPrice) {
     res.json(cartItems.filter((cartItem) => cartItem.price <= maxPrice));
